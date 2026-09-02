@@ -27,3 +27,4 @@ $espacios = [
         "estado" => "Disponible"
     ]
 ];
+?>
