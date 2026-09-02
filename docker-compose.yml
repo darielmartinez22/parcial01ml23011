@@ -1,0 +1,15 @@
+services:
+  apache:
+    build: ./apache
+    image: parcial1:1.0
+    container_name: server-apache2-2
+    restart: always
+    volumes:
+      - ./proyectos:/var/www/html
+    ports:
+      - "8090:80"
+    networks:
+      - red-servidores
+
+networks:
+  red-servidores:
