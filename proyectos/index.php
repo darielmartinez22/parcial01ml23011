@@ -3,7 +3,7 @@
 session_start();
 
 define("CARGO_FIJO", 5);
-
+//Arreglo multidimensional
 $espacios = [
 
     "Cancha de Futbol" => [
@@ -27,4 +27,51 @@ $espacios = [
         "estado" => "Disponible"
     ]
 ];
+//Funcion de Limpiar Texto
+function limpiarTexto($texto)
+{
+    $texto = trim($texto);
+    $texto = strtolower($texto);
+    $texto = ucwords($texto);
+
+    return $texto;
+}
+
+//Aqui se calcula el descuento que tendran los roles, que son de estudiante, docente y el visitante
+function calcularDescuento($tipo, $subtotal)
+{
+    switch ($tipo) {
+
+        case "estudiante":
+            return $subtotal * 0.20;
+
+        case "docente":
+            return $subtotal * 0.10;
+
+        case "visitante":
+            return 0;
+
+        default:
+            return 0;
+    }
+}
+//Calculamos el total del total y descuento
+function calcularTotal($subtotal, $descuento)
+{
+    return ($subtotal - $descuento) + CARGO_FIJO;
+}
+//Primera parte para subir datos 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $nombre = limpiarTexto($_POST["nombre"] ?? "");
+    $correo = trim($_POST["correo"] ?? "");
+    $tipo = $_POST["tipo"] ?? "";
+    $disciplina = $_POST["disciplina"] ?? "";
+    $espacio = $_POST["espacio"] ?? "";
+
+    $participantes = $_POST["participantes"] ?? 0;
+    $horas = $_POST["horas"] ?? 0;
+
+    $errores = [];
+}
 ?>
