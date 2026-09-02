@@ -74,4 +74,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $errores = [];
 }
+//Para que el usuario piense un poquito, en que debe de llenar todos los espacios y las validaciones que le corresponden
+if ($nombre == "") {
+        $errores[] = "El nombre es obligatorio.";
+    }
+//Este es un filtro de validacion
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        $errores[] = "El correo no es válido.";
+    }
+
+    if ($participantes <= 0) {
+        $errores[] = "Los participantes deben ser mayores que cero.";
+    }
+
+    if ($horas <= 0) {
+        $errores[] = "Las horas deben ser mayores que cero.";
+    }
+
+    if (!isset($espacios[$espacio])) {
+        $errores[] = "Debe seleccionar un espacio.";
+    }
+
+    if (count($errores) == 0) {
+
+        $datos = $espacios[$espacio];
+
+        $capacidad = $datos["capacidad"];
+        $costoHora = $datos["costo"];
+        $estado = $datos["estado"];
+
+        if ($participantes > $capacidad) {
+
+            $errores[] = "El espacio solo permite $capacidad participantes.";
+
+        } else {
+
+            if ($disciplina != $datos["disciplina"]) {
+
+                $errores[] = "La disciplina no corresponde al espacio.";
+
+            } else {
+
+            }
+        }
+    }
 ?>
